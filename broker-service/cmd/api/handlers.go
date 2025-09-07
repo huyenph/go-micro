@@ -6,19 +6,18 @@ import (
 )
 
 type jsonResponse struct {
-	Error bool `json:"error"`
+	Error   bool   `json:"error"`
 	Message string `json:"message"`
-	Data any `json:"data,omitempty"`
+	Data    any    `json:"data,omitempty"`
 }
 
-func (app *Config) Broker(w http.ResponseWriter, r *http.Request) {
+func (app *Config) Broker(rw http.ResponseWriter, r *http.Request) {
 	payload := jsonResponse{
-		Error: false,
+		Error:   false,
 		Message: "Hit the broker",
 	}
-
 	out, _ := json.MarshalIndent(payload, "", "\t")
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusAccepted)
-	w.Write(out)
+	rw.Header().Set("Content-Type", "application/json")
+	rw.WriteHeader(http.StatusAccepted)
+	rw.Write(out)
 }
