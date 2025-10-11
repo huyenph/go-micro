@@ -266,3 +266,10 @@ func (u *User) PasswordMatches(plainText string) (bool, error) {
 
 	return true, nil
 }
+
+func (u *User) PasswordPlainMatches(plainText string) (bool, error) {
+	if u.Password == plainText {
+		return true, nil
+	}
+	return false, nil
+}
