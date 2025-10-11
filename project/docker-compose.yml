@@ -5,6 +5,7 @@ services:
     build:
       context: ./../broker-service
       dockerfile: ./../broker-service/broker.dockerfile
+    container_name: broker-service
     restart: always
     ports:
       - "8080:80"
@@ -16,6 +17,7 @@ services:
     build:
       context: ./../authentication-service
       dockerfile: ./../authentication-service/authentication.dockerfile
+    container_name: authentication-service
     restart: always
     ports:
       - "8081:80"
@@ -27,6 +29,7 @@ services:
 
   postgres:
     image: "postgres:17"
+    container_name: postgres
     ports:
       - "5432:5432"
     restart: always
@@ -39,3 +42,15 @@ services:
       POSTGRES_DB: users
     volumes:
       - ./db-data/postgres/:/var/lib/postgresql/data/
+
+  mongo:
+    image: "mongo:4.2.16-bionic"
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: logs
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./db-data/mongo/:/data/db
